@@ -14,6 +14,11 @@ char *messages [NTHREADS] = {
     "Xin chao!"
 }; 
 
+void display_msg(char *msg, unsigned len) {
+    for(int i=0; i<len; i++)
+        printf("%c", msg[i]);
+    printf("\n");
+}
 
 struct thdata {
     char                *letter;
@@ -33,7 +38,7 @@ void *thread_function(void *thdata)
     sem_wait(&priv->start);
 
     /* write my letter */
-    printf("%s\n",priv->letter);
+    display_msg(priv->letter, strlen(priv->letter));
 
     /* sync */
     sem_post(&priv->sync);
